@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useRef, useEffect } from "react";
+import "./App.css";
+
+import CalendarPage from "./page/CalendarDemo";
+// 优化antd表单置灰时文字颜色太浅
+import FormDisable from "./page/FormDisable";
+
+import TestDemo from "./page/TestDemo";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div style={{ border: "1px solid red", width: 500 }}>
+        <CalendarPage />
+      </div>
+
+      <div style={{ border: "1px solid red", width: 500 }}>
+        <FormDisable></FormDisable>
+      </div>
+      <div style={{ border: "1px solid red", width: 500 }}>
+        <TestDemo />
+      </div>
+    </>
   );
 }
 

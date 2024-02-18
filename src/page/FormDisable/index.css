@@ -1,0 +1,19 @@
+/* .ant-input[disabled] {
+  color: rgba(0, 0, 0, 0.85);
+}
+.ant-checkbox-disabled + span {
+  color: rgba(0, 0, 0, 0.85);
+}
+.ant-select-disabled.ant-select:not(.ant-select-customize-input)
+  .ant-select-selector {
+  color: rgba(0, 0, 0, 0.85);
+} */
+
+/* 表单元素 disabled 样式 */
+.ant-input[disabled],
+.ant-checkbox-disabled + span,
+.ant-select-disabled.ant-select:not(.ant-select-customize-input)
+  .ant-select-selector,
+.ant-radio-disabled + span {
+  color: rgba(0, 0, 0, 0.85);
+}
