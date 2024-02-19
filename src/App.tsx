@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react";
+
 import "./App.css";
 
 import CalendarPage from "./page/CalendarDemo";
@@ -6,6 +7,7 @@ import CalendarPage from "./page/CalendarDemo";
 import FormDisable from "./page/FormDisable";
 
 import TestDemo from "./page/TestDemo";
+import BetterCalendar from "./page/BetterCalendar";
 
 function App() {
   return (
@@ -14,11 +16,12 @@ function App() {
         <CalendarPage />
       </div>
 
-      <div style={{ border: "1px solid red", width: 500 }}>
+      {/* <div style={{ border: "1px solid red", width: 500 }}>
         <FormDisable></FormDisable>
-      </div>
-      <div style={{ border: "1px solid red", width: 500 }}>
-        <TestDemo />
+      </div> */}
+      <div style={{ border: "1px solid red", width: 700 }}>
+        {/* <TestDemo /> */}
+        <BetterCalendar />
       </div>
     </>
   );
