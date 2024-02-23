@@ -1,20 +1,88 @@
-import React from "react";
-import { Dayjs } from "dayjs";
+import React, { useState, CSSProperties, ReactNode } from "react";
+import cs from "classnames";
+import dayjs, { Dayjs } from "dayjs";
 import MonthCalendar from "./MonthCalendar";
 import "./index.scss";
 import Header from "./Header";
+import LocaleContext from "./LocaleContext";
 
 export interface CalendarProps {
   value: Dayjs;
+  style?: CSSProperties;
+  className?: string | string[];
+  // 定制日期显示，会完全覆盖日期单元格
+  dateRender?: (currentDate: Dayjs) => ReactNode;
+  // 定制日期单元格，内容会被添加到单元格内，只在全屏日历模式下生效。
+  dateInnerContent?: (currentDate: Dayjs) => ReactNode;
+  // 国际化相关
+  locale?: string;
+  onChange?: (date: Dayjs) => void;
 }
 
-function index(props: CalendarProps) {
+function Calendar(props: CalendarProps) {
+  const {
+    value,
+    style,
+    className,
+    dateRender,
+    dateInnerContent,
+    locale,
+    onChange,
+  } = props;
+
+  const [curValue, setCurValue] = useState<Dayjs>(value);
+
+  const [curMonth, setCurMonth] = useState<Dayjs>(value);
+
+  function changeDate(date: Dayjs) {
+    setCurValue(date);
+    setCurMonth(date);
+    onChange?.(date);
+  }
+
+  const selectHandler = (date: Dayjs) => {
+    changeDate(date);
+  };
+
+  function prevMonthHandler() {
+    setCurMonth(curMonth.subtract(1, "month"));
+  }
+
+  function nextMonthHandler() {
+    setCurMonth(curMonth.add(1, "month"));
+  }
+
+  function todayHandler() {
+    const date = dayjs(Date.now());
+
+    changeDate(date);
+  }
+
+  // 这里用 classnames 这个包来做 className 的合并。
+  // 它可以传入对象或者数组，会自动合并，返回最终的 className：
+  const classNames = cs("calendar", className);
   return (
-    <div className="calendar">
-      <Header />
-      <MonthCalendar {...props} />
-    </div>
+    <LocaleContext.Provider
+      value={{
+        locale: locale || navigator.language,
+      }}
+    >
+      <div className={classNames} style={style}>
+        <Header
+          curMonth={curMonth}
+          prevMonthHandler={prevMonthHandler}
+          nextMonthHandler={nextMonthHandler}
+          todayHandler={todayHandler}
+        />
+        <MonthCalendar
+          {...props}
+          value={curValue}
+          curMonth={curMonth}
+          selectHandler={selectHandler}
+        />
+      </div>
+    </LocaleContext.Provider>
   );
 }
 
-export default index;
+export default Calendar;
